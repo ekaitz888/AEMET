@@ -1,0 +1,96 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+        integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <link rel="stylesheet" href="AEMET.css">
+    <title>Hello, world!</title>
+</head>
+
+<body>
+    <div class="titulo"></div>
+    <div class="container">
+
+
+    </div>
+    <ul class="nav nav-tabs">
+            <button type="button" class="btn btn-primary ">erabaki</button>
+    </ul>
+
+
+    <!-- Optional JavaScript -->
+    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.0/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"
+        integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1"
+        crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
+        integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
+        crossorigin="anonymous"></script>
+    <script>
+        $(document).ready(function () {
+            var key = 'eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJla2FpdHpnekBnbWFpbC5jb20iLCJqdGkiOiJiZDM4MjBkZS00ZWMwLTQ1NDktYWZjMC1mM2Y5NjVmNzEzYjUiLCJpc3MiOiJBRU1FVCIsImlhdCI6MTU1NjUyMDE0OCwidXNlcklkIjoiYmQzODIwZGUtNGVjMC00NTQ5LWFmYzAtZjNmOTY1ZjcxM2I1Iiwicm9sZSI6IiJ9.SqBZQP-71ydscgQb7vplD4U0ejG5FUU_gDYOPItRS4E';
+            var myurl = "https://opendata.aemet.es/opendata/api/maestro/municipios/?api_key=" + key;
+            
+            // AJAX
+/*            var settings = {
+                "async": true,
+                "crossDomain": true,
+                dataType: 'json',
+                "url": myurl,
+                "method": "GET",
+                "headers": {
+                    "cache-control": "no-cache"
+                }
+            }
+
+            $.ajax(settings).done(function (response) {
+                console.log(response);
+                Print(response);
+            });
+*/
+
+            // getJSON
+
+            $.getJSON(myurl, function(response){
+                console.log(response);
+                Print(response);
+            });
+
+
+
+
+             function Print(response) {
+                var htmlzatia = '<h1> maestros</h1>';
+
+                console.log(response);
+                $(".titulo").html(htmlzatia);
+                htmlzatia = '';
+                for (i in response) {
+                //for(var i=0; i<10; i++){
+                    htmlzatia += '<div class="card col-md-4" ">';
+                    htmlzatia += '<div class="card-body">';
+                    htmlzatia += '<h5 class="card-title">' + response[i].nombre + '</h5>';
+                    htmlzatia += '<p class="card-text">' + response[i].latitud + ' ' + response[i].capital + '</p>';
+                    htmlzatia += '</div>';
+                    htmlzatia += '</div>';
+                    
+                }
+                $('.container').html(htmlzatia);
+                $('.card').on("click", function(){
+                    $('.btn').show();
+                });
+            }
+
+
+        })
+    </script>
+</body>
+
+</html>
